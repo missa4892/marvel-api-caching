@@ -4,7 +4,7 @@ import { Character } from './model/character.model';
 import { Injectable, HttpService } from "@nestjs/common";
 
 @Injectable()
-export class MarvelService {
+export class MarvelApiService {
   constructor(private httpService: HttpService) {}
 
   async getAllCharacters(): Promise<Character[]> {

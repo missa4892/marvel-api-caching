@@ -1,15 +1,15 @@
 import { of } from 'rxjs';
 import { HttpService } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { Character } from './../../src/marvel/model/character.model';
-import { MarvelService } from './../../src/marvel/marvel.service';
+import { Character } from '../../src/marvel/model/character.model';
+import { MarvelApiService } from '../../src/marvel/marvel.api.service';
 import { Test } from '@nestjs/testing';
 import { HttpModule } from '@nestjs/common';
 
 jest.setTimeout(200000);
 
 describe('MarvelServiceTest', () => {
-    let marvelService: MarvelService;
+    let marvelApiService: MarvelApiService;
     let mockHttpService: HttpService;
 
     beforeAll(async () => {
@@ -18,9 +18,9 @@ describe('MarvelServiceTest', () => {
                 timeout: 10000,
                 maxRedirects: 5,
               })],
-            providers: [MarvelService],
+            providers: [MarvelApiService],
         }).compile();
-        marvelService = testingModule.get<MarvelService>(MarvelService);
+        marvelApiService = testingModule.get<MarvelApiService>(MarvelApiService);
         mockHttpService = testingModule.get<HttpService>(HttpService);
     });
 
@@ -34,7 +34,7 @@ describe('MarvelServiceTest', () => {
             config: {}
           };
         jest.spyOn(mockHttpService, 'get').mockImplementation(() => of(mock));
-        const result: Character[] = await marvelService.getAllCharacters();
+        const result: Character[] = await marvelApiService.getAllCharacters();
         expect(result).toHaveLength(1);
         expect(result[0].id).toEqual(123);
     });
@@ -49,7 +49,7 @@ describe('MarvelServiceTest', () => {
             config: {}
           };
         jest.spyOn(mockHttpService, 'get').mockImplementation(() => of(mock));
-        const result: Character[] = await marvelService.getAllCharacters();
+        const result: Character[] = await marvelApiService.getAllCharacters();
         expect(result).toHaveLength(2);
         expect(result[0].id).toEqual(123);
         expect(result[1].id).toEqual(124);
