@@ -11,7 +11,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Marvel Character API Swagger')
-    .setDescription('The Marvel Character API description')
+    .setDescription('The Marvel Character API description. Data provided by Marvel. © 2014 Marvel')
     .setVersion('1.0')
     .addTag('marvel')
     .build();

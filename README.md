@@ -4,6 +4,8 @@
 Uses 
 [Nest](https://github.com/nestjs/nest) framework TypeScript repository.
 
+Data provided by Marvel. © 2014 Marvel
+
 ## Installation
 
 ```bash
@@ -33,9 +35,6 @@ Then access the server at `http://localhost:8080`
 ```bash
 # unit tests
 $ yarn test
-
-# test coverage
-$ yarn test:cov
 ```
 
 ## Swagger
