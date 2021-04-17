@@ -3,17 +3,20 @@ import { MarvelApiService } from './marvel.api.service';
 import { Cache } from 'cache-manager';
 import { Logger, Injectable, Inject, CACHE_MANAGER } from '@nestjs/common';
 
-export const ALL_CHARACTER_IDS_KEY = "ALL_CHARACTER_IDS";
-export const ALL_CHARACTERS_KEY = "ALL_CHARACTERS";
+export const ALL_CHARACTER_IDS_KEY = 'ALL_CHARACTER_IDS';
+export const ALL_CHARACTERS_KEY = 'ALL_CHARACTERS';
 
 const TIME_TO_LIVE = 86400;
 
 @Injectable()
 export class MarvelService {
-  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache, private marvelApiService: MarvelApiService) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private marvelApiService: MarvelApiService,
+  ) {}
 
   private readonly logger = new Logger(MarvelService.name);
-  
+
   async getCharacterById(id: number): Promise<Character> {
     const map = await this.cacheManager.get(ALL_CHARACTERS_KEY);
     if (!map || !map[id]) {
@@ -26,7 +29,9 @@ export class MarvelService {
   }
 
   async getAllCharacterIds(): Promise<number[]> {
-    const characterIds: number[] = await this.cacheManager.get<Array<number>>(ALL_CHARACTER_IDS_KEY);
+    const characterIds: number[] = await this.cacheManager.get<Array<number>>(
+      ALL_CHARACTER_IDS_KEY,
+    );
     if (!characterIds || characterIds.length == 0) {
       this.logger.log('Fetching from api...');
       const allCharacters = await this.marvelApiService.getAllCharacters();
@@ -42,9 +47,14 @@ export class MarvelService {
     await this.setInCacheForBothKeys(allIds, allCharacters);
   }
 
-  private async setInCacheForBothKeys(allIds: number[], allCharacters: Character[]) {
+  private async setInCacheForBothKeys(
+    allIds: number[],
+    allCharacters: Character[],
+  ) {
     this.logger.log('Setting in cache...');
-    await this.cacheManager.set(ALL_CHARACTER_IDS_KEY, allIds, { ttl: TIME_TO_LIVE });
+    await this.cacheManager.set(ALL_CHARACTER_IDS_KEY, allIds, {
+      ttl: TIME_TO_LIVE,
+    });
     const map = allCharacters.reduce((map, obj) => {
       map[obj.id] = obj;
       return map;

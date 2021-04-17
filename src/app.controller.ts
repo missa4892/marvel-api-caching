@@ -1,6 +1,7 @@
 import { Character } from './model/character.model';
 import { Controller, Get, Param } from '@nestjs/common';
 import { MarvelService } from './marvel.service';
+import { CharacterParam } from './model/character.param';
 
 @Controller()
 export class AppController {
@@ -12,7 +13,7 @@ export class AppController {
   }
 
   @Get('/characters/:id')
-  getCharacterById(@Param() params): Promise<Character> {
+  getCharacterById(@Param() params: CharacterParam): Promise<Character> {
     return this.marvelService.getCharacterById(params.id);
   }
 }
