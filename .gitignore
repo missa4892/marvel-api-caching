@@ -35,3 +35,4 @@ lerna-debug.log*
 launch.json
 
 .env
+test/app.e2e.spec.ts

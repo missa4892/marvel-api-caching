@@ -1,14 +1,12 @@
 import { of } from 'rxjs';
 import { HttpService } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { Character } from '../../src/marvel/model/character.model';
-import { MarvelApiService } from '../../src/marvel/marvel.api.service';
+import { Character } from '../../src/model/character.model';
+import { MarvelApiService } from '../../src/marvel.api.service';
 import { Test } from '@nestjs/testing';
 import { HttpModule } from '@nestjs/common';
 
-jest.setTimeout(200000);
-
-describe('MarvelServiceTest', () => {
+describe('MarvelApiServiceTest', () => {
     let marvelApiService: MarvelApiService;
     let mockHttpService: HttpService;
 

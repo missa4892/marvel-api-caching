@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { MarvelService } from './marvel.service';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MarvelModule } from './marvel.module';
 
 @Module({
-  imports: [],
+  imports: [MarvelModule, CacheModule.register(), ConfigModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [MarvelService],
 })
 export class AppModule {}
