@@ -1,4 +1,4 @@
-# Marvel Charater API
+# Marvel Character API
 
 ## Description
 Uses 
@@ -9,6 +9,17 @@ Uses
 ```bash
 $ yarn
 ```
+
+
+## Environment Variables
+Add a `.env` file similar to `.env.sample` to root.
+
+2 environment variables are required:
+
+| Key  | Remark |
+| -------------  | ------------- |
+| PUBLIC_API_KEY  | To be provided separately   |
+| PRIVATE_API_KEY  | To be provided separately  |
 
 ## Running the app
 
