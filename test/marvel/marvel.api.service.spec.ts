@@ -52,4 +52,32 @@ describe('MarvelApiServiceTest', () => {
         expect(result[0].id).toEqual(123);
         expect(result[1].id).toEqual(124);
     });
-})
+
+    it('returns emptylist if api returns empty list', async () => {
+
+        const mock: AxiosResponse = {
+            data: {data: {results: [], total: 0}},
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config: {}
+          };
+        jest.spyOn(mockHttpService, 'get').mockImplementation(() => of(mock));
+        const result: Character[] = await marvelApiService.getAllCharacters();
+        expect(result).toHaveLength(0);
+    });
+
+    it('returns emptylist if api data returns empty', async () => {
+
+        const mock: AxiosResponse = {
+            data: {data: null},
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config: {}
+          };
+        jest.spyOn(mockHttpService, 'get').mockImplementation(() => of(mock));
+        const result: Character[] = await marvelApiService.getAllCharacters();
+        expect(result).toHaveLength(0);
+    });
+});
